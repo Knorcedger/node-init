@@ -1,6 +1,8 @@
 # node-init
 
-This is a node init repo. To use it, I have an alias in my [zsh](http://ohmyz.sh/) config that executes the following commands
+This is a node init repo.
+
+To use it, I have an alias in my [zsh](http://ohmyz.sh/) config that executes the following commands
 
 ```sh
 git clone git@github.com:Knorcedger/node-init.git . && rm -rf .git && git init && npm init -y \
