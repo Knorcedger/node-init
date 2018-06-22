@@ -1,6 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import winston from 'winston';
+import signale from 'signale';
 import nconf from 'nconf';
 
 nconf.argv()
@@ -9,7 +9,6 @@ nconf.argv()
 
 // read env variables
 const port = nconf.get('PORT');
-winston.level = nconf.get('LOG_LEVEL');
 
 // initialize the express app
 const app = express();
@@ -26,13 +25,13 @@ app.post('/sync', async (req, res) => {
 });
 
 // initialize the http server
-app.listen(port, () => winston.info(`Listening on port: ${port}`));
+app.listen(port, () => signale.info(`Listening on port: ${port}`));
 
 // catch any uncaught exceptions, so that the server never crashes
 process.on('uncaughtException', err => {
-  winston.error('Problem: uncaughtException', err);
+  signale.error('Problem: uncaughtException', err);
 });
 
 process.on('unhandledRejection', (reason, p) => {
-  winston.error('Problem: Unhandled Rejection at: Promise', p, 'reason:', reason);
+  signale.error('Problem: Unhandled Rejection at: Promise', p, 'reason:', reason);
 });
