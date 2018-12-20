@@ -5,7 +5,7 @@ import nconf from 'nconf';
 
 nconf.argv()
   .env()
-  .file('local', './config.json')
+  .file('local', './config.json');
 
 // read env variables
 const port = nconf.get('PORT');
@@ -15,9 +15,9 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.post('/sync', async (req, res) => {
+app.use('/sync', async (req, res) => {
   // read the data
-  const randomParam = req.body.randomParam;
+  const randomParam = req.body.randomParam || req.query.randomParam;
 
   res.status(200).send({
     randomParam
