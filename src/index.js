@@ -16,11 +16,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.use('/', async (req, res) => {
-  // read the data
-  const randomParam = req.body.randomParam || req.query.randomParam;
-
   res.status(200).send({
-    randomParam
+    ...req.body,
+    ...req.query
   });
 });
 
