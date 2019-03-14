@@ -1,7 +1,7 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import signale from 'signale';
-import nconf from 'nconf';
+const express = require('express');
+const bodyParser = require('body-parser');
+const signale = require('signale');
+const nconf = require('nconf');
 
 nconf.argv()
   .env()
@@ -15,13 +15,18 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.use('/sync', async (req, res) => {
+app.use('/', async (req, res) => {
   // read the data
   const randomParam = req.body.randomParam || req.query.randomParam;
 
   res.status(200).send({
     randomParam
   });
+});
+
+// send 404 for anything else requested
+app.use('*', (req, res) => {
+  res.status(404).send({error: 'Not Found'});
 });
 
 // initialize the http server
